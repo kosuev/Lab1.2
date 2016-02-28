@@ -3,34 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;    //для роботи з файлами
 
-namespace Афінний
+
+namespace Афінний_шифр
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string povidomlennja = null;
+
             int f;
+            Console.WriteLine("\nОберiть дiю: \n0. Зашифрувати текст. \n1. Розшифрувати текст. \n2. Вийти.");
+            f = Convert.ToInt16(Console.ReadLine());
+            if ((f != 0) && (f != 1))
+                Environment.Exit(0);
 
-            Console.WriteLine("Введiть повiдомлення: ");
-            povidomlennja = Console.ReadLine();
+            Console.WriteLine("\nВведiть повiдомлення: ");
+            string povidomlennja = Console.ReadLine();
 
-            Console.Write("\nВведiть ключ 'а' i ключ 'b': ");
+
+            Console.WriteLine("\nВведiть ключ 'а' i ключ 'b': ");
             int a = Convert.ToInt32(Console.ReadLine());
             int b = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("\nВиберiть дiю: \n0. Зберегти результат у файл на робочий стiл \n1. Продовжити без збереження");
-            f = Convert.ToInt16(Console.ReadLine());
+            if ((Evklid(a, 34) != 1)|| (a <= 0) || (a >= 34)||(b<0)||(b>34))
+            {
+                Console.WriteLine("\nВи ввели не вiрнi ключi. \nКлючi мають вiдповiдати таким умовам:\n   0<a<34; \n   0<b<m.\n ");
+                Console.WriteLine("\nВведiть ще раз ключi 'а' i 'b': ");
+                a = Convert.ToInt32(Console.ReadLine());
+                b = Convert.ToInt32(Console.ReadLine());
+            }
 
-            Shifr shyfrovka = new Shifr(povidomlennja, a, b);
-            shyfrovka.Print();
-
+            
             if (f == 0)
-                shyfrovka.File();
+            {
+                Shifr shyfrovka = new Shifr(povidomlennja, a, b);
+                shyfrovka.Print();
+            }
 
-            Console.ReadKey();
+            else 
+            {
+                DShifr text = new DShifr(povidomlennja, a, b);
+                text.Print();
+            }
+            
+                Console.ReadKey();           
+        }
+
+        static int Evklid(int a, int b)//функція Евкліда
+        {
+            int c;
+            while (b != 0)
+            {
+                c = a % b;
+                a = b;
+                b = c;
+            }
+            return (a);
         }
     }
 }

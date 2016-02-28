@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Афінний
+namespace Афінний_шифр
 {
     class Shifr
     {
@@ -33,14 +33,6 @@ namespace Афінний
         public void Print()                                //функція виводу
         {
             Console.Write("\n\n" + zt);
-        }
-
-        public void File()                                //функція запису результату у файл
-        {
-            StreamWriter sw = new StreamWriter("C:\\Users\\Lesyk\\Desktop\\Зашифрований текст.doc");
-            sw.WriteLine(zt);
-            sw.Close();
-
-        }
+        }        
     }
 }
